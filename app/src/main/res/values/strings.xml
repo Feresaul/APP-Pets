@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PetsApp</string>
+    <string name="api_url">"https://jsonplaceholder.typicode.com/"</string>
+</resources>

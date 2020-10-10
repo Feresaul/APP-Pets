@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SingUp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_login_r"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:text="Log In"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24pt"
+        android:layout_marginTop="12pt"
+        android:layout_marginEnd="24pt"
+        android:layout_marginBottom="10pt"
+        android:fontFamily="sans-serif-light"
+        android:text="Sing Up"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/ip_user_r"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24pt"
+        android:layout_marginEnd="24pt"
+        android:layout_marginBottom="4pt"
+        android:ems="10"
+        android:hint="User"
+        android:inputType="textPersonName"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/ip_name_r"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24pt"
+        android:layout_marginEnd="24pt"
+        android:layout_marginBottom="4pt"
+        android:ems="10"
+        android:hint="Full Name"
+        android:inputType="textPersonName"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/ip_email_r"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24pt"
+        android:layout_marginEnd="24pt"
+        android:layout_marginBottom="4pt"
+        android:ems="10"
+        android:hint="E-mail"
+        android:inputType="textEmailAddress"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/ip_phone_r"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24pt"
+        android:layout_marginEnd="24pt"
+        android:layout_marginBottom="4pt"
+        android:ems="10"
+        android:hint="Phone"
+        android:inputType="phone"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/ip_psw_r"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24pt"
+        android:layout_marginEnd="24pt"
+        android:layout_marginBottom="4pt"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/ip_psw2_r"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24pt"
+        android:layout_marginEnd="24pt"
+        android:layout_marginBottom="4pt"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btn_submit"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24pt"
+        android:layout_marginTop="12pt"
+        android:layout_marginEnd="24pt"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Submit"
+        android:textAllCaps="false" />
+</LinearLayout>
