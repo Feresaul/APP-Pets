@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.BaseAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_history.*
 import kotlinx.android.synthetic.main.activity_services.*
@@ -96,16 +97,16 @@ class Services : AppCompatActivity() {
 
     private fun getPosts(){
         val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl(getString(R.string.api_url))
+            .baseUrl(getString(R.string.api_url_))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val apiInterface = retrofit.create(ApiInterface::class.java)
-        val call: Call<List<Post>> = apiInterface.getPosts()
+        val call: Call<ArrayList<Post>> = apiInterface.getPosts()
 
         var postList: ArrayList<ServiceItem> = ArrayList<ServiceItem>()
 
-        call.enqueue(object: Callback<List<Post>> {
-            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+        call.enqueue(object: Callback<ArrayList<Post>> {
+            override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
 
                 val responseP = response.body()
                 if (responseP!!.size > 0){
@@ -119,7 +120,8 @@ class Services : AppCompatActivity() {
                     list_s.adapter = ItemsAdapter(postList)
                 }
             }
-            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
+                Toast.makeText(applicationContext, "Failed to load data", Toast.LENGTH_LONG).show()
             }
         })
     }

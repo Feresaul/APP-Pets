@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">PetsApp</string>
-    <string name="api_url">"https://jsonplaceholder.typicode.com/"</string>
+    <string name="api_url">"https://demoapiusers.conveyor.cloud/api/admin/"</string>
+    <string name="api_url_">"https://jsonplaceholder.typicode.com/"</string>
 </resources>
