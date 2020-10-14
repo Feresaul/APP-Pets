@@ -21,19 +21,19 @@ class Home : AppCompatActivity() {
         }
 
         btn_medica.setOnClickListener {
-            changeView(Medical::class.java)
+            changeView(Service::class.java)
         }
 
         btn_estetica.setOnClickListener {
-            changeView(Esthetic::class.java)
+            changeView(Service::class.java)
         }
 
         btn_citas.setOnClickListener {
-            changeView(Services::class.java)
+            changeView(MyServices::class.java)
         }
 
         btn_hospedaje.setOnClickListener {
-            changeView(Lodging::class.java)
+            changeView(Service::class.java)
         }
 
         btn_historial.setOnClickListener {

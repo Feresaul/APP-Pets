@@ -4,16 +4,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.Window
-import kotlinx.android.synthetic.main.activity_esthetic.*
+import kotlinx.android.synthetic.main.activity_service.*
 import kotlinx.android.synthetic.main.product_item.view.*
+import model.AppHelper
 import model.ServiceItem
 import java.lang.StringBuilder
 
-class Esthetic : AppCompatActivity() {
+class Service : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
-        setContentView(R.layout.activity_esthetic)
+        setContentView(R.layout.activity_service)
 
         val array = ArrayList<ServiceItem>()
         val itemArray = ArrayList<View>()
@@ -21,37 +22,31 @@ class Esthetic : AppCompatActivity() {
         array.add(post)
         var post2 = ServiceItem(1, "","Medium Service", "", 250.0.toFloat(), 45, "", "")
         array.add(post2)
-        var post3 = ServiceItem(2, "","Full Service", "", 350.0.toFloat(), 180, "", "")
+        var post3 = ServiceItem(2, "","Full Service", "", 350.0.toFloat(), 90, "", "")
         array.add(post3)
 
         for (i in 0 until array.size){
+            val appHelper = AppHelper()
             val item = layoutInflater.inflate(R.layout.product_item, null)
             itemArray.add(item)
             val element = array[i]
             item.txt_e_service_item.text = element.service
-            item.txt_e_time_item.text = StringBuilder().append(element.time).append(" min")
+            val strtime: String = appHelper.timeStrBuild(element.time!!.toInt())
+            item.txt_e_time_item.text = StringBuilder().append(strtime)
             item.txt_e_price_item.text = element.price.toString()
-            e_service_items.addView(item)
+            service_items.addView(item)
+
             item.item_e.setOnClickListener {
-                checkBoxListener(i, array, itemArray)
+                appHelper.checkBoxGroup(i, array, itemArray)
             }
         }
 
-        btn_back_e.setOnClickListener {
+        btn_back.setOnClickListener {
             finish()
         }
 
-        btn_proceed_e.setOnClickListener {
+        btn_proceed.setOnClickListener {
             //to-do
-        }
-    }
-
-    private fun checkBoxListener(index: Int, array: ArrayList<ServiceItem>, itemArray: ArrayList<View>){
-        val item = itemArray[index].checkBox
-        item.isChecked = !item.isChecked
-
-        for (i in 0 until array.size) {
-            if (i != index) itemArray[i].checkBox.isChecked = false
         }
     }
 

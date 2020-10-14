@@ -11,9 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Esthetic"></activity>
+        <activity android:name=".Service"></activity>
         <activity android:name=".HistoryItem" />
-        <activity android:name=".Services" />
+        <activity android:name=".MyServices" />
         <activity android:name=".Lodging" />
         <activity android:name=".Medical" />
         <activity android:name=".History" />

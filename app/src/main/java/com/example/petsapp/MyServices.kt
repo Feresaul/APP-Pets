@@ -1,7 +1,6 @@
 package com.example.petsapp
 
 import android.content.DialogInterface
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -10,10 +9,10 @@ import android.view.Window
 import android.widget.BaseAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.activity_history.*
-import kotlinx.android.synthetic.main.activity_services.*
+import kotlinx.android.synthetic.main.activity_my_services.*
 import kotlinx.android.synthetic.main.service_item.view.*
 import model.ApiInterface
+import model.AppHelper
 import model.Post
 import model.ServiceItem
 import retrofit2.Call
@@ -23,11 +22,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.StringBuilder
 
-class Services : AppCompatActivity() {
+class MyServices : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
-        setContentView(R.layout.activity_services)
+        setContentView(R.layout.activity_my_services)
 
         getPosts()
 
@@ -76,7 +75,7 @@ class Services : AppCompatActivity() {
             myView.txt_status_s.text = myNode.status
             myView.txt_service_s.text = myNode.service
             myView.txt_amount_s.text = StringBuilder().append(" $").append(myNode.price)
-            myView.txt_time_s.text = StringBuilder().append(myNode.time).append(" min")
+            myView.txt_time_s.text = AppHelper().timeStrBuild(myNode.time!!.toInt())
             myView.txt_starts_s.text = myNode.starts
             myView.txt_ends_s.text = myNode.ends
             myView.btn_cancel_s.setOnClickListener { cancelAlert(p0, listItems) }

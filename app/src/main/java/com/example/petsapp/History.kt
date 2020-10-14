@@ -10,6 +10,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_history.*
 import kotlinx.android.synthetic.main.history_item.view.*
 import model.ApiInterface
+import model.AppHelper
 import model.Post
 import model.ServiceItem
 import retrofit2.Call
@@ -49,7 +50,7 @@ class History : AppCompatActivity() {
             myView.txt_status_h.text = myNode.status
             myView.txt_service_h.text = myNode.service
             myView.txt_amount_h.text = StringBuilder().append(" $").append(myNode.price)
-            myView.txt_time_h.text = StringBuilder().append(myNode.time).append(" min")
+            myView.txt_time_h.text = AppHelper().timeStrBuild(myNode.time!!.toInt())
             myView.txt_starts_h.text = myNode.starts
             myView.txt_ends_h.text = myNode.ends
             return myView
