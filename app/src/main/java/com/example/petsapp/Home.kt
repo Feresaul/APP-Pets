@@ -16,7 +16,7 @@ class Home : AppCompatActivity() {
 
         btn_logout.setOnClickListener {
             val sharedPreferences = this.getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE)
-            sharedPreferences.edit().remove("usuario").apply()
+            sharedPreferences.edit().remove("id_usuario").apply()
             changeView(LogIn::class.java)
         }
 
@@ -45,6 +45,4 @@ class Home : AppCompatActivity() {
         val intent = Intent(applicationContext, view)
         startActivity(intent)
     }
-
-    override fun onBackPressed() {}
 }

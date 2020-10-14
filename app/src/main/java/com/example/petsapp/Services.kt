@@ -36,6 +36,8 @@ class Services : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() { finish() }
+
     private fun cancelAlert(index: Int, list: ArrayList<ServiceItem>){
         val alertDialog: AlertDialog = this.let {
             val builder = AlertDialog.Builder(it)

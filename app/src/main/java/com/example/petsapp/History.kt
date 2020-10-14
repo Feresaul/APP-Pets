@@ -32,6 +32,8 @@ class History : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() { finish() }
+
     inner class ItemsAdapter: BaseAdapter {
 
         var listItems = ArrayList<ServiceItem>()

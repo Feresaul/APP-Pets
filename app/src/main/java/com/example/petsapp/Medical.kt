@@ -17,4 +17,6 @@ class Medical : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    override fun onBackPressed() { finish() }
 }

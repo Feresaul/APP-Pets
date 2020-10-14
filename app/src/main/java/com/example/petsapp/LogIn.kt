@@ -24,27 +24,34 @@ class LogIn : AppCompatActivity() {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_main)
 
-        val sharedPreferences = this.getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE)
-        val usuario = sharedPreferences.getString("usuario","")
-        if (usuario != null && usuario != ""){
-            home()
-        }
-
         btn_login.setOnClickListener {
+            if (ip_user.text.toString() == "" || ip_psw.text.toString() == ""){
+                Toast.makeText(applicationContext, "Complete all fields", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
             getPosts()
         }
 
         btn_singup.setOnClickListener{
             val intent = Intent(applicationContext, SingUp::class.java)
             startActivity(intent)
+            finish()
         }
     }
 
+    override fun onStart() {
+        val sharedPreferences = this.getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE)
+        val usuario = sharedPreferences.getInt("id_usuario", -1)
+        if (usuario != -1){
+            home()
+        }
+        super.onStart()
+    }
+
     fun home(){
-        //val sharedPreferences = this.getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE)
-        //sharedPreferences.edit().putString("usuario", ip_user.text.toString()).apply()
         val intent = Intent(applicationContext, Home::class.java)
         startActivity(intent)
+        finish()
     }
 
     override fun onBackPressed(){}
@@ -55,21 +62,27 @@ class LogIn : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val apiInterface = retrofit.create(ApiInterface::class.java)
-        val call: Call<ResponseT<Usuario>> = apiInterface.getUser(3)
+        val call: Call<ResponseT<Usuario>> = apiInterface.getUser(ip_user.text.toString().toInt())
 
         call.enqueue(object: Callback<ResponseT<Usuario>> {
             override fun onResponse(call: Call<ResponseT<Usuario>>, response: Response<ResponseT<Usuario>>) {
-                println("HOLA")
                 val responseP = response.body()
                 println(Gson().toJson(responseP))
-                if (responseP != null) {
+                if (responseP!!.modelo != null) {
                     if (responseP.modelo!!.contrasenia == ip_psw.text.toString()){
+                        val sharedPreferences = getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE)
+                        sharedPreferences.edit().putInt("id_usuario", responseP.modelo!!.idUsuario!!.toInt()).apply()
                         home()
                     }
+                    else{
+                        Toast.makeText(applicationContext, "Incorrect Password", Toast.LENGTH_LONG).show()
+                    }
+                }
+                else{
+                    Toast.makeText(applicationContext, "Username does not exist", Toast.LENGTH_LONG).show()
                 }
             }
             override fun onFailure(call: Call<ResponseT<Usuario>>, t: Throwable) {
-                println(t.message)
                 Toast.makeText(applicationContext, "Failed to load data", Toast.LENGTH_LONG).show()
             }
         })

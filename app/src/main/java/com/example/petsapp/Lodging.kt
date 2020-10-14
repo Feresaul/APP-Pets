@@ -15,4 +15,6 @@ class Lodging : AppCompatActivity() {
             finish()
         }
     }
+
+    override fun onBackPressed() { finish() }
 }
