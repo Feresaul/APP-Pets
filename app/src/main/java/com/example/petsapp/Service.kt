@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.Window
+import android.widget.CalendarView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_service.*
 import kotlinx.android.synthetic.main.product_item.view.*
 import model.AppHelper
 import model.ServiceItem
 import java.lang.StringBuilder
+import java.util.*
+import kotlin.collections.ArrayList
 
 class Service : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +28,10 @@ class Service : AppCompatActivity() {
         array.add(post2)
         var post3 = ServiceItem(2, "","Full Service", "", 350.0.toFloat(), 90, "", "")
         array.add(post3)
+        var post4 = ServiceItem(3, "","Full Service", "", 350.0.toFloat(), 90, "", "")
+        array.add(post4)
+        var post5 = ServiceItem(4, "","Full Service", "", 350.0.toFloat(), 90, "", "")
+        array.add(post5)
 
         for (i in 0 until array.size){
             val appHelper = AppHelper()
@@ -41,12 +49,23 @@ class Service : AppCompatActivity() {
             }
         }
 
+        val calendar = CalendarView(this)
+        service_items.addView(calendar)
+
         btn_back.setOnClickListener {
             finish()
         }
 
         btn_proceed.setOnClickListener {
-            //to-do
+            val checkBoxID: Int = AppHelper().checkBoxSelected(array, itemArray)
+            if (checkBoxID != -1){
+                println("ID:")
+                println(checkBoxID)
+                //Api Function
+            }else{
+                Toast.makeText(applicationContext, "Select Service", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
         }
     }
 

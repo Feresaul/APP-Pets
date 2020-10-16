@@ -16,7 +16,7 @@ class Home : AppCompatActivity() {
 
         btn_logout.setOnClickListener {
             val sharedPreferences = this.getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE)
-            sharedPreferences.edit().remove("id_usuario").apply()
+            sharedPreferences.edit().remove("id_user").apply()
             changeView(LogIn::class.java)
         }
 

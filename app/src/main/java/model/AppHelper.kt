@@ -6,13 +6,20 @@ import java.lang.StringBuilder
 
 class AppHelper{
 
-     fun checkBoxGroup(index: Int, array: ArrayList<ServiceItem>, itemArray: ArrayList<View>){
+    fun checkBoxGroup(index: Int, array: ArrayList<ServiceItem>, itemArray: ArrayList<View>){
         val item = itemArray[index].checkBox
         item.isChecked = !item.isChecked
 
         for (i in 0 until array.size) {
             if (i != index) itemArray[i].checkBox.isChecked = false
         }
+    }
+
+    fun checkBoxSelected(array: ArrayList<ServiceItem>, itemArray: ArrayList<View>): Int{
+        for (i in 0 until array.size){
+            if (itemArray[i].checkBox.isChecked) return array[i].id!!.toInt()
+        }
+        return -1
     }
 
     fun timeStrBuild(minutes: Int): String{

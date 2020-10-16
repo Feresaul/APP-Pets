@@ -26,7 +26,7 @@ class History : AppCompatActivity() {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_history)
 
-        getPosts()
+        getItems()
 
         btn_back_h.setOnClickListener {
             finish()
@@ -70,7 +70,7 @@ class History : AppCompatActivity() {
 
     }
 
-    private fun getPosts(){
+    private fun getItems(){
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(getString(R.string.api_url_))
             .addConverterFactory(GsonConverterFactory.create())

@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.Window
 import android.widget.Toast
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_login.*
 import model.ApiInterface
 import model.ResponseT
 import model.Usuario
@@ -22,26 +22,25 @@ class LogIn : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
 
         btn_login.setOnClickListener {
             if (ip_user.text.toString() == "" || ip_psw.text.toString() == ""){
                 Toast.makeText(applicationContext, "Complete all fields", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
-            getPosts()
+            getAccess()
         }
 
         btn_singup.setOnClickListener{
             val intent = Intent(applicationContext, SingUp::class.java)
             startActivity(intent)
-            finish()
         }
     }
 
     override fun onStart() {
         val sharedPreferences = this.getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE)
-        val usuario = sharedPreferences.getInt("id_usuario", -1)
+        val usuario = sharedPreferences.getInt("id_user", -1)
         if (usuario != -1){
             home()
         }
@@ -56,7 +55,7 @@ class LogIn : AppCompatActivity() {
 
     override fun onBackPressed(){}
 
-    private fun getPosts(){
+    private fun getAccess(){
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(getString(R.string.api_url))
             .addConverterFactory(GsonConverterFactory.create())
@@ -71,7 +70,7 @@ class LogIn : AppCompatActivity() {
                 if (responseP!!.modelo != null) {
                     if (responseP.modelo!!.contrasenia == ip_psw.text.toString()){
                         val sharedPreferences = getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE)
-                        sharedPreferences.edit().putInt("id_usuario", responseP.modelo!!.idUsuario!!.toInt()).apply()
+                        sharedPreferences.edit().putInt("id_user", responseP.modelo!!.idUsuario!!.toInt()).apply()
                         home()
                     }
                     else{

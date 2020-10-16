@@ -13,19 +13,15 @@ class SingUp : AppCompatActivity() {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_sing_up)
 
-        val sharedPreferences = this.getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE)
-
         btn_login_r.setOnClickListener{
-            val intent = Intent(applicationContext, LogIn::class.java)
-            startActivity(intent)
             finish()
         }
 
         btn_submit.setOnClickListener {
-            sharedPreferences.edit().putString("usuario", ip_user_r.text.toString()).apply()
-            val intent = Intent(applicationContext, Home::class.java)
-            startActivity(intent)
+            //Api Function
             finish()
         }
     }
+
+    override fun onBackPressed() { finish() }
 }
