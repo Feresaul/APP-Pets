@@ -17,32 +17,33 @@ class Home : AppCompatActivity() {
         btn_logout.setOnClickListener {
             val sharedPreferences = this.getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE)
             sharedPreferences.edit().remove("id_user").apply()
-            changeView(LogIn::class.java)
+            changeView(LogIn::class.java, false, "")
         }
 
         btn_medica.setOnClickListener {
-            changeView(Service::class.java)
+            changeView(Service::class.java, true, "medical")
         }
 
         btn_estetica.setOnClickListener {
-            changeView(Service::class.java)
+            changeView(Service::class.java, true, "esthetic")
         }
 
         btn_citas.setOnClickListener {
-            changeView(MyServices::class.java)
+            changeView(MyServices::class.java, false, "")
         }
 
         btn_hospedaje.setOnClickListener {
-            changeView(Service::class.java)
+            changeView(Service::class.java, true, "lodging")
         }
 
         btn_historial.setOnClickListener {
-            changeView(History::class.java)
+            changeView(History::class.java, false, "")
         }
     }
 
-    private fun changeView(view: Class<out Activity>){
+    private fun changeView(view: Class<out Activity>, activo: Boolean, string: String){
         val intent = Intent(applicationContext, view)
+        if (activo) intent.putExtra("typeService", string)
         startActivity(intent)
     }
 }

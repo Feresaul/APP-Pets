@@ -6,16 +6,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/baseline_pets_white_48dp"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/baseline_pets_white_48dp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Service"></activity>
-        <activity android:name=".HistoryItem" />
+        <activity android:name=".Time"></activity>
+        <activity android:name=".Service" />
         <activity android:name=".MyServices" />
-        <activity android:name=".Lodging" />
-        <activity android:name=".Medical" />
         <activity android:name=".History" />
         <activity android:name=".Home" />
         <activity android:name=".SingUp" />

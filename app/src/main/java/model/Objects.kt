@@ -20,6 +20,20 @@ class Usuario{
     var activo: Boolean ?= null
 }
 
+class ServiceHours{
+    var opens: String ?= null
+    var closes: String ?= null
+    var time: Int ?= null
+    var data: ArrayList<String> ?= null
+
+    constructor(opens: String, closes: String, time: Int, data: ArrayList<String>){
+        this.opens = opens
+        this.closes = closes
+        this.time = time
+        this.data = data
+    }
+}
+
 class ServiceItem{
     var id: Int ?= null
     var type: String ?= null

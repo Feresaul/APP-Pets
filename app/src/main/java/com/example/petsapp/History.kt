@@ -80,7 +80,7 @@ class History : AppCompatActivity() {
 
         println(call.toString())
 
-        var postList: ArrayList<ServiceItem> = ArrayList<ServiceItem>()
+        var postList: ArrayList<ServiceItem> = ArrayList()
 
         call.enqueue(object: Callback<ArrayList<Post>> {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
