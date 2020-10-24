@@ -1,5 +1,6 @@
 package com.example.petsapp
 
+import android.content.Context
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,11 +10,12 @@ import android.view.Window
 import android.widget.BaseAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_my_services.*
 import kotlinx.android.synthetic.main.service_item.view.*
 import model.ApiInterface
 import model.AppHelper
-import model.Post
+import model.ResponseT
 import model.ServiceItem
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,8 +57,12 @@ class MyServices : AppCompatActivity() {
         alertDialog.show()
     }
 
-    private fun cancelService(id: Int, list: ArrayList<ServiceItem>){
-        list.removeAt(id)
+    private fun cancelService(index: Int, list: ArrayList<ServiceItem>){
+        println("DATA")
+        val idCita: Int = list[index].id!!.toInt()
+        deleteItem(idCita)
+        list.removeAt(index)
+        println(idCita)
         list_s.adapter = ItemsAdapter(list)
     }
 
@@ -97,32 +103,45 @@ class MyServices : AppCompatActivity() {
     }
 
     private fun getItems(){
+        val idUsuario = this.getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE).getInt("id_user", -1)
+        loading_progress_S.visibility = View.VISIBLE
+
         val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl(getString(R.string.api_url_))
+            .baseUrl(getString(R.string.api_url))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val apiInterface = retrofit.create(ApiInterface::class.java)
-        val call: Call<ArrayList<Post>> = apiInterface.getPosts()
+        val call: Call<ResponseT<ArrayList<ServiceItem>>> = apiInterface.getServices(idUsuario)
 
-        var postList: ArrayList<ServiceItem> = ArrayList<ServiceItem>()
-
-        call.enqueue(object: Callback<ArrayList<Post>> {
-            override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
-
+        call.enqueue(object: Callback<ResponseT<ArrayList<ServiceItem>>> {
+            override fun onResponse(call: Call<ResponseT<ArrayList<ServiceItem>>>, response: Response<ResponseT<ArrayList<ServiceItem>>>) {
                 val responseP = response.body()
-                if (responseP!!.size > 0){
-                    var i = 0
-                    while(responseP.size > i){
-                        var elemento = ServiceItem(0,responseP[i].title.toString(),responseP[i].body.toString(),
-                            responseP[i].id.toString(),120.0.toFloat(),60,"02/08/2020 12:35 am","02/08/2020 02:35 pm")
-                        postList.add(elemento)
-                        i += 1
-                    }
-                    list_s.adapter = ItemsAdapter(postList)
-                }
+                if (responseP!!.modelo != null) list_s.adapter = ItemsAdapter(responseP.modelo!!)
+                loading_progress_S.visibility = View.GONE
             }
-            override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseT<ArrayList<ServiceItem>>>, t: Throwable) {
+                loading_progress_S.visibility = View.GONE
                 Toast.makeText(applicationContext, "Failed to load data", Toast.LENGTH_LONG).show()
+                finish()
+            }
+        })
+    }
+
+    private fun deleteItem(idCita: Int){
+        val retrofit: Retrofit = Retrofit.Builder()
+            .baseUrl(getString(R.string.api_url))
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val apiInterface = retrofit.create(ApiInterface::class.java)
+        val call: Call<ResponseT<Int>> = apiInterface.deleteService(idCita)
+
+        call.enqueue(object: Callback<ResponseT<Int>> {
+            override fun onResponse(call: Call<ResponseT<Int>>, response: Response<ResponseT<Int>>) {
+                Toast.makeText(applicationContext, "Canceled", Toast.LENGTH_LONG).show()
+            }
+            override fun onFailure(call: Call<ResponseT<Int>>, t: Throwable) {
+                Toast.makeText(applicationContext, "Error", Toast.LENGTH_LONG).show()
+                finish()
             }
         })
     }

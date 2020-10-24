@@ -3,7 +3,7 @@ package model
 import com.google.gson.annotations.SerializedName
 
 class ResponseT<T>{
-    @SerializedName("tieneResultado")
+    @SerializedName("tieneError")
     var respuesta: Boolean ?= null
     @SerializedName("mensaje")
     var mensaje: String ?= null
@@ -35,13 +35,21 @@ class ServiceHours{
 }
 
 class ServiceItem{
+    @SerializedName("id")
     var id: Int ?= null
+    @SerializedName("tipoServicio")
     var type: String ?= null
+    @SerializedName("nombre")
     var service: String ?= null
+    @SerializedName("status")
     var status: String ?= null
+    @SerializedName("precio")
     var price: Float ?= null
+    @SerializedName("tiempo")
     var time: Int ?= null
+    @SerializedName("fechaInicio")
     var starts: String ?= null
+    @SerializedName("fechaTermino")
     var ends: String ? =null
 
     constructor(id: Int, type: String, service: String, status: String, price: Float, time: Int, starts: String, ends: String){

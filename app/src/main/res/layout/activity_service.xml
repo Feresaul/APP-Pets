@@ -16,7 +16,7 @@
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="sans-serif"
             android:text="Go Back"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
@@ -28,7 +28,7 @@
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="sans-serif"
             android:text="Proceed"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/baseline_store_white_48dp"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,8 +55,14 @@
         android:background="?android:attr/listDivider" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/c_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/loading_progress"
+            android:visibility="gone"
+            layout="@layout/loading_screen"/>
 
         <ScrollView
             android:id="@+id/scrollView3"

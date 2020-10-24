@@ -26,8 +26,6 @@ class Time : AppCompatActivity() {
         //Pedir horas ocupadas API
 
         var arrayList = ArrayList<String>()
-        arrayList.add("10:30")
-        arrayList.add("15:00")
 
         val serviceHours = ServiceHours("9:00", "18:00", 45, arrayList)
         val array = AppHelper().getArrayOfHours(serviceHours)

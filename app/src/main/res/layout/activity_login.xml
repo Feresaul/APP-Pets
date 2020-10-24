@@ -17,23 +17,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="140dp"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="@font/baloo_da"
             android:text="PETS"
-            android:textSize="36sp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="56sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:fontFamily="sans-serif-light"
-            android:text="care"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -102,7 +92,7 @@
                     android:id="@+id/btn_singup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
+                    android:fontFamily="sans-serif"
                     android:padding="4pt"
                     android:text="Sing Up"
                     android:textColor="@color/colorPrimary" />

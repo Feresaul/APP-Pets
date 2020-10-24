@@ -29,7 +29,7 @@ class LogIn : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Complete all fields", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
-            getAccess()
+            //getAccess()
         }
 
         btn_singup.setOnClickListener{
@@ -55,7 +55,7 @@ class LogIn : AppCompatActivity() {
 
     override fun onBackPressed(){}
 
-    private fun getAccess(){
+    /*private fun getAccess(){
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(getString(R.string.api_url))
             .addConverterFactory(GsonConverterFactory.create())
@@ -85,5 +85,5 @@ class LogIn : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Failed to load data", Toast.LENGTH_LONG).show()
             }
         })
-    }
+    }*/
 }

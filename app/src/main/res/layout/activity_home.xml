@@ -16,7 +16,7 @@
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="sans-serif"
             android:text="Log Out"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
