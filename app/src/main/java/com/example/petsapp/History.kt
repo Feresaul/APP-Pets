@@ -94,7 +94,7 @@ class History : AppCompatActivity() {
             }
             override fun onFailure(call: Call<ResponseT<ArrayList<ServiceItem>>>, t: Throwable) {
                 loading_progress_H.visibility = View.GONE
-                Toast.makeText(applicationContext, "Failed to load data", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "failed to load data", Toast.LENGTH_LONG).show()
                 finish()
             }
         })

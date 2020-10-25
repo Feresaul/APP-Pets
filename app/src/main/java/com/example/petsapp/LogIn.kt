@@ -10,7 +10,7 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_login.*
 import model.ApiInterface
 import model.ResponseT
-import model.Usuario
+import model.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,10 +26,10 @@ class LogIn : AppCompatActivity() {
 
         btn_login.setOnClickListener {
             if (ip_user.text.toString() == "" || ip_psw.text.toString() == ""){
-                Toast.makeText(applicationContext, "Complete all fields", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "complete all fields", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
-            //getAccess()
+            getAccess()
         }
 
         btn_singup.setOnClickListener{
@@ -40,8 +40,8 @@ class LogIn : AppCompatActivity() {
 
     override fun onStart() {
         val sharedPreferences = this.getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE)
-        val usuario = sharedPreferences.getInt("id_user", -1)
-        if (usuario != -1){
+        val idUser = sharedPreferences.getInt("id_user", -1)
+        if (idUser != -1){
             home()
         }
         super.onStart()
@@ -55,35 +55,34 @@ class LogIn : AppCompatActivity() {
 
     override fun onBackPressed(){}
 
-    /*private fun getAccess(){
+    private fun getAccess(){
+
+        val user = User()
+        user.usuario = ip_user.text.toString()
+        user.contrasenia = ip_psw.text.toString()
+
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(getString(R.string.api_url))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val apiInterface = retrofit.create(ApiInterface::class.java)
-        val call: Call<ResponseT<Usuario>> = apiInterface.getUser(ip_user.text.toString().toInt())
+        val call: Call<ResponseT<Int>> = apiInterface.logIn(user)
 
-        call.enqueue(object: Callback<ResponseT<Usuario>> {
-            override fun onResponse(call: Call<ResponseT<Usuario>>, response: Response<ResponseT<Usuario>>) {
+        call.enqueue(object: Callback<ResponseT<Int>> {
+            override fun onResponse(call: Call<ResponseT<Int>>, response: Response<ResponseT<Int>>) {
                 val responseP = response.body()
-                println(Gson().toJson(responseP))
-                if (responseP!!.modelo != null) {
-                    if (responseP.modelo!!.contrasenia == ip_psw.text.toString()){
-                        val sharedPreferences = getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE)
-                        sharedPreferences.edit().putInt("id_user", responseP.modelo!!.idUsuario!!.toInt()).apply()
-                        home()
-                    }
-                    else{
-                        Toast.makeText(applicationContext, "Incorrect Password", Toast.LENGTH_LONG).show()
-                    }
+                if (!responseP!!.respuesta!!) {
+                    val sharedPreferences = getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE)
+                    sharedPreferences.edit().putInt("id_user", responseP.modelo!!).apply()
+                    home()
                 }
                 else{
-                    Toast.makeText(applicationContext, "Username does not exist", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, responseP.mensaje, Toast.LENGTH_LONG).show()
                 }
             }
-            override fun onFailure(call: Call<ResponseT<Usuario>>, t: Throwable) {
-                Toast.makeText(applicationContext, "Failed to load data", Toast.LENGTH_LONG).show()
+            override fun onFailure(call: Call<ResponseT<Int>>, t: Throwable) {
+                Toast.makeText(applicationContext, "failed to load data", Toast.LENGTH_LONG).show()
             }
         })
-    }*/
+    }
 }

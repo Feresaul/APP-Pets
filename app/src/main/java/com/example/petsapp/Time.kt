@@ -73,7 +73,7 @@ class Time : AppCompatActivity() {
                 finish()
             }
             else{
-            Toast.makeText(applicationContext, "Select time", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, "select time", Toast.LENGTH_LONG).show()
             return@setOnClickListener
             }
         }

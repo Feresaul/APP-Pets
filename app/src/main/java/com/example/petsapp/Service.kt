@@ -79,7 +79,7 @@ class Service : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }else{
-                Toast.makeText(applicationContext, "Select Service", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "select a service", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
         }
@@ -107,7 +107,7 @@ class Service : AppCompatActivity() {
             }
             override fun onFailure(call: Call<ResponseT<ArrayList<ServiceItem>>>, t: Throwable) {
                 loading_progress.visibility = View.GONE
-                Toast.makeText(applicationContext, "Failed to load data", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "failed to load data", Toast.LENGTH_LONG).show()
                 finish()
             }
         })

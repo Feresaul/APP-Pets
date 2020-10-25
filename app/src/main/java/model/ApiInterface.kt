@@ -1,12 +1,13 @@
 package model
 import retrofit2.Call
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiInterface {
-    @GET("ObtenerUsuarios")
-    fun getUsers(): Call<ResponseT<ArrayList<Usuario>>>
+    @POST("usuarios/login")
+    fun logIn(@Body usuario: User): Call<ResponseT<Int>>
+
+    @POST("usuarios/registro")
+    fun singUp(@Body usuario: User): Call<ResponseT<Int>>
 
     @GET("servicios/obtenerPorTipo")
     fun getServicesByType(@Query("tipo") tipo: String): Call<ResponseT<ArrayList<ServiceItem>>>

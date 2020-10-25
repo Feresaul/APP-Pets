@@ -11,13 +11,17 @@ class ResponseT<T>{
     var modelo: T ?= null
 }
 
-class Usuario{
-    var idUsuario: Int ?= null
-    var nombreUsuario: String ?= null
-    var nombres: String ?= null
-    var apellidos: String ?= null
+class User{
+    @SerializedName("nombreCompleto")
+    var nombre: String ?= null
+    @SerializedName("usuario")
+    var usuario: String ?= null
+    @SerializedName("email")
+    var correo: String ?= null
+    @SerializedName("telefono")
+    var telefono: String ?= null
+    @SerializedName("contrasenia")
     var contrasenia: String ?= null
-    var activo: Boolean ?= null
 }
 
 class ServiceHours{
@@ -51,15 +55,4 @@ class ServiceItem{
     var starts: String ?= null
     @SerializedName("fechaTermino")
     var ends: String ? =null
-
-    constructor(id: Int, type: String, service: String, status: String, price: Float, time: Int, starts: String, ends: String){
-        this.id = id
-        this.type = type
-        this.service = service
-        this.status = status
-        this.price = price
-        this.time = time
-        this.starts = starts
-        this.ends = ends
-    }
 }

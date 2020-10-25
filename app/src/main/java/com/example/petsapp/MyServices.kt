@@ -121,7 +121,7 @@ class MyServices : AppCompatActivity() {
             }
             override fun onFailure(call: Call<ResponseT<ArrayList<ServiceItem>>>, t: Throwable) {
                 loading_progress_S.visibility = View.GONE
-                Toast.makeText(applicationContext, "Failed to load data", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "failed to load data", Toast.LENGTH_LONG).show()
                 finish()
             }
         })
@@ -137,10 +137,10 @@ class MyServices : AppCompatActivity() {
 
         call.enqueue(object: Callback<ResponseT<Int>> {
             override fun onResponse(call: Call<ResponseT<Int>>, response: Response<ResponseT<Int>>) {
-                Toast.makeText(applicationContext, "Canceled", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, response.body()!!.modelo!! , Toast.LENGTH_LONG).show()
             }
             override fun onFailure(call: Call<ResponseT<Int>>, t: Throwable) {
-                Toast.makeText(applicationContext, "Error", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "error", Toast.LENGTH_LONG).show()
                 finish()
             }
         })
