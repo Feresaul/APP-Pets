@@ -1,5 +1,6 @@
 package com.example.petsapp
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,6 +25,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.StringBuilder
 
+@SuppressLint("ResourceType")
 class History : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,7 +86,7 @@ class History : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val apiInterface = retrofit.create(ApiInterface::class.java)
-        val call: Call<ResponseT<ArrayList<ServiceItem>>> = apiInterface.getHistorial(idUsuario)
+        val call: Call<ResponseT<ArrayList<ServiceItem>>> = apiInterface.getHistory(idUsuario)
 
         call.enqueue(object: Callback<ResponseT<ArrayList<ServiceItem>>> {
             override fun onResponse(call: Call<ResponseT<ArrayList<ServiceItem>>>, response: Response<ResponseT<ArrayList<ServiceItem>>>) {
@@ -94,7 +96,7 @@ class History : AppCompatActivity() {
             }
             override fun onFailure(call: Call<ResponseT<ArrayList<ServiceItem>>>, t: Throwable) {
                 loading_progress_H.visibility = View.GONE
-                Toast.makeText(applicationContext, "failed to load data", Toast.LENGTH_LONG).show()
+                AppHelper().myToast(applicationContext,"failed to load data", R.drawable.ic_baseline_cancel_24, getString(R.color.toast_error))
                 finish()
             }
         })

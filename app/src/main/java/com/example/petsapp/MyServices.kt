@@ -1,5 +1,6 @@
 package com.example.petsapp
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +25,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.StringBuilder
 
+@SuppressLint("ResourceType")
 class MyServices : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,7 +123,7 @@ class MyServices : AppCompatActivity() {
             }
             override fun onFailure(call: Call<ResponseT<ArrayList<ServiceItem>>>, t: Throwable) {
                 loading_progress_S.visibility = View.GONE
-                Toast.makeText(applicationContext, "failed to load data", Toast.LENGTH_LONG).show()
+                AppHelper().myToast(applicationContext,"failed to load data", R.drawable.ic_baseline_cancel_24, getString(R.color.toast_error))
                 finish()
             }
         })
@@ -140,7 +142,7 @@ class MyServices : AppCompatActivity() {
                 Toast.makeText(applicationContext, response.body()!!.modelo!! , Toast.LENGTH_LONG).show()
             }
             override fun onFailure(call: Call<ResponseT<Int>>, t: Throwable) {
-                Toast.makeText(applicationContext, "error", Toast.LENGTH_LONG).show()
+                AppHelper().myToast(applicationContext,"cancellation error", R.drawable.ic_baseline_cancel_24, getString(R.color.toast_error))
                 finish()
             }
         })

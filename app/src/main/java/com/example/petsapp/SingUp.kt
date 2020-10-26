@@ -1,5 +1,6 @@
 package com.example.petsapp
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,7 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_sing_up.*
 import model.ApiInterface
+import model.AppHelper
 import model.ResponseT
 import model.User
 import retrofit2.Call
@@ -17,6 +19,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+@SuppressLint("ResourceType")
 class SingUp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +33,7 @@ class SingUp : AppCompatActivity() {
         btn_submit.setOnClickListener {
             val res = check()
             if (res.error!!){
-                Toast.makeText(applicationContext, res.message, Toast.LENGTH_LONG).show()
+                AppHelper().myToast(applicationContext, res.message!!, R.drawable.ic_baseline_error_outline_24, getString(R.color.toast_alert))
                 return@setOnClickListener
             }
             getAccess()
@@ -88,17 +91,17 @@ class SingUp : AppCompatActivity() {
         call.enqueue(object: Callback<ResponseT<Int>> {
             override fun onResponse(call: Call<ResponseT<Int>>, response: retrofit2.Response<ResponseT<Int>>) {
                 val responseP = response.body()
-                if (!responseP!!.respuesta!!) {
+                if (!responseP!!.error!!) {
                     val sharedPreferences = getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE)
                     sharedPreferences.edit().putInt("id_user", responseP.modelo!!).apply()
                     finish()
                 }
                 else{
-                    Toast.makeText(applicationContext, responseP.mensaje, Toast.LENGTH_LONG).show()
+                    AppHelper().myToast(applicationContext,responseP.mensaje!!, R.drawable.ic_baseline_cancel_24, getString(R.color.toast_error))
                 }
             }
             override fun onFailure(call: Call<ResponseT<Int>>, t: Throwable) {
-                Toast.makeText(applicationContext, "failed to load data", Toast.LENGTH_LONG).show()
+                AppHelper().myToast(applicationContext,"failed to load data", R.drawable.ic_baseline_cancel_24, getString(R.color.toast_error))
             }
         })
     }

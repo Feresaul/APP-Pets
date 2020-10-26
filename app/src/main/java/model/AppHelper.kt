@@ -1,8 +1,18 @@
 package model
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Color
+import android.graphics.ColorFilter
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.CheckBox
-import kotlinx.android.synthetic.main.product_item.view.*
+import android.widget.Toast
+import com.example.petsapp.R
+import kotlinx.android.synthetic.main.toast_item.view.*
 import java.lang.StringBuilder
 
 class AppHelper{
@@ -83,5 +93,22 @@ class AppHelper{
             strtime = StringBuilder().append(time).append(" min").toString()
         }
         return strtime
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    fun myToast(context: Context, text: String, icon: Int, colorHEX: String){
+        val item = LayoutInflater.from(context).inflate(R.layout.toast_item, null)
+        item.toast_txt.text = text
+        item.toast_img.setBackgroundResource(icon)
+        val drawable: Drawable = context.resources.getDrawable(R.drawable.rounded_toast, context.theme)
+        val color: Int = Color.parseColor(colorHEX)
+        drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+        item.background = drawable
+
+        val toast = Toast(context)
+        toast.duration = Toast.LENGTH_SHORT
+        toast.setGravity(Gravity.BOTTOM, 0, 30)
+        toast.view = item
+        toast.show()
     }
 }

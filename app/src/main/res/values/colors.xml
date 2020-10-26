@@ -7,4 +7,6 @@
     <color name="smoke">#E6E6E6</color>
     <color name="semiTransparent">#0FFFFFFF</color>
     <color name="blue_item">#90BFD5</color>
+    <color name="toast_alert">#202525</color>
+    <color name="toast_error">#B62E3F</color>
 </resources>

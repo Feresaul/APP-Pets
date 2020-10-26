@@ -13,7 +13,7 @@ interface ApiInterface {
     fun getServicesByType(@Query("tipo") tipo: String): Call<ResponseT<ArrayList<ServiceItem>>>
 
     @GET("servicios/historial")
-    fun getHistorial(@Query("idUsuario") idUsuario: Int): Call<ResponseT<ArrayList<ServiceItem>>>
+    fun getHistory(@Query("idUsuario") idUsuario: Int): Call<ResponseT<ArrayList<ServiceItem>>>
 
     @GET("servicios/citasPendientes")
     fun getServices(@Query("idUsuario") idUsuario: Int): Call<ResponseT<ArrayList<ServiceItem>>>

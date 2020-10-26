@@ -1,7 +1,9 @@
 package com.example.petsapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.widget.CalendarView
@@ -10,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_service.*
 import kotlinx.android.synthetic.main.product_item.view.*
+import kotlinx.android.synthetic.main.toast_item.view.*
 import model.ApiInterface
 import model.AppHelper
 import model.ResponseT
@@ -19,9 +22,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.Exception
 import java.text.SimpleDateFormat
 
-
+@SuppressLint("ResourceType")
 class Service : AppCompatActivity() {
 
     val itemArray = ArrayList<View>()
@@ -79,7 +83,7 @@ class Service : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }else{
-                Toast.makeText(applicationContext, "select a service", Toast.LENGTH_LONG).show()
+                AppHelper().myToast(applicationContext,"select a service", R.drawable.ic_baseline_error_outline_24, getString(R.color.toast_alert))
                 return@setOnClickListener
             }
         }
@@ -101,13 +105,16 @@ class Service : AppCompatActivity() {
         call.enqueue(object: Callback<ResponseT<ArrayList<ServiceItem>>> {
             override fun onResponse(call: Call<ResponseT<ArrayList<ServiceItem>>>, response: Response<ResponseT<ArrayList<ServiceItem>>>) {
                 val responseP = response.body()
-                array.addAll(responseP!!.modelo!!)
-                completeView()
-                loading_progress.visibility = View.GONE
+                if (!responseP!!.error!!){
+                    if (responseP.modelo != null)
+                        array.addAll(responseP.modelo!!)
+                    completeView()
+                    loading_progress.visibility = View.GONE
+                }
             }
             override fun onFailure(call: Call<ResponseT<ArrayList<ServiceItem>>>, t: Throwable) {
                 loading_progress.visibility = View.GONE
-                Toast.makeText(applicationContext, "failed to load data", Toast.LENGTH_LONG).show()
+                AppHelper().myToast(applicationContext,"failed to load data", R.drawable.ic_baseline_cancel_24, getString(R.color.toast_error))
                 finish()
             }
         })

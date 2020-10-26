@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 class ResponseT<T>{
     @SerializedName("tieneError")
-    var respuesta: Boolean ?= null
+    var error: Boolean ?= null
     @SerializedName("mensaje")
     var mensaje: String ?= null
     @SerializedName("modelo")
