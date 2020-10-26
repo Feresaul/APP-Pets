@@ -58,8 +58,7 @@ class SingUp : AppCompatActivity() {
             response.error = true
             response.message = "complete all fields"
         }
-
-        if (ip_psw_r.text.toString() != ip_psw2_r.text.toString()){
+        else if (ip_psw_r.text.toString() != ip_psw2_r.text.toString()){
             ip_psw_r.setText("")
             ip_psw2_r.setText("")
 

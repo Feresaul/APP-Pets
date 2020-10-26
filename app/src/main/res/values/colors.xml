@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2B95B5</color>
-    <color name="colorPrimaryDark">#215C73</color>
-    <color name="colorAccent">#196E9C</color>
+    <color name="colorPrimary">#69AFC5</color>
+    <color name="colorPrimaryDark">#397085</color>
+    <color name="colorAccent">#488AAE</color>
     <color name="darkGray">#454545</color>
     <color name="smoke">#E6E6E6</color>
-    <color name="semiTransparent">#0FFFFFFF</color>
+    <color name="semiTransparent">#80FFFFFF</color>
     <color name="blue_item">#90BFD5</color>
-    <color name="toast_alert">#202525</color>
-    <color name="toast_error">#B62E3F</color>
+    <color name="toast_alert">#555555</color>
+    <color name="toast_error">#B15E69</color>
 </resources>

@@ -92,6 +92,9 @@ class History : AppCompatActivity() {
             override fun onResponse(call: Call<ResponseT<ArrayList<ServiceItem>>>, response: Response<ResponseT<ArrayList<ServiceItem>>>) {
                 val responseP = response.body()
                 if (responseP!!.modelo != null) list_h.adapter = ItemsAdapter(responseP.modelo!!)
+                if (responseP.modelo!!.size <= 0)
+                    AppHelper().myToast(applicationContext,"no items found", R.drawable.ic_baseline_remove_circle_outline_24, getString(R.color.toast_alert))
+
                 loading_progress_H.visibility = View.GONE
             }
             override fun onFailure(call: Call<ResponseT<ArrayList<ServiceItem>>>, t: Throwable) {

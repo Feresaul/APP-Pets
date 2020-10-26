@@ -11,18 +11,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="44dp"
+            android:background="@drawable/bck"
+            android:backgroundTint="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="140dp"
-            android:fontFamily="@font/baloo_da"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/averia_libre_bold"
             android:text="PETS"
-            android:textColor="@color/colorPrimary"
-            android:textSize="56sp"
+            android:textColor="@color/blue_item"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -35,6 +48,8 @@
         android:ems="10"
         android:hint="User"
         android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="@color/darkGray"
         android:textSize="16sp" />
 
     <EditText
@@ -46,7 +61,8 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        android:textColor="@android:color/primary_text_light_nodisable"
+        android:textAlignment="center"
+        android:textColor="@color/darkGray"
         android:textColorHint="@android:color/darker_gray"
         android:textSize="16sp" />
 

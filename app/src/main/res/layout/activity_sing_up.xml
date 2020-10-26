@@ -41,6 +41,7 @@
         android:layout_marginBottom="10pt"
         android:fontFamily="sans-serif"
         android:text="Sing Up"
+        android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/colorAccent"
         android:textSize="24sp" />
@@ -55,6 +56,8 @@
         android:ems="10"
         android:hint="User"
         android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="@color/darkGray"
         android:textSize="16sp" />
 
     <EditText
@@ -67,6 +70,8 @@
         android:ems="10"
         android:hint="Full Name"
         android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="@color/darkGray"
         android:textSize="16sp" />
 
     <EditText
@@ -79,6 +84,8 @@
         android:ems="10"
         android:hint="E-mail"
         android:inputType="textEmailAddress"
+        android:textAlignment="center"
+        android:textColor="@color/darkGray"
         android:textSize="16sp" />
 
     <EditText
@@ -91,6 +98,8 @@
         android:ems="10"
         android:hint="Phone"
         android:inputType="phone"
+        android:textAlignment="center"
+        android:textColor="@color/darkGray"
         android:textSize="16sp" />
 
     <EditText
@@ -103,6 +112,8 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+        android:textAlignment="center"
+        android:textColor="@color/darkGray"
         android:textSize="16sp" />
 
     <EditText
@@ -115,6 +126,8 @@
         android:ems="10"
         android:hint="Confirm Password"
         android:inputType="textPassword"
+        android:textAlignment="center"
+        android:textColor="@color/darkGray"
         android:textSize="16sp" />
 
     <Button
