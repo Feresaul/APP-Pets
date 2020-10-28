@@ -10,10 +10,7 @@ import android.widget.Toast
 import androidx.core.graphics.toColor
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_login.*
-import model.ApiInterface
-import model.AppHelper
-import model.ResponseT
-import model.User
+import model.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -63,12 +60,8 @@ class LogIn : AppCompatActivity() {
         user.usuario = ip_user.text.toString()
         user.contrasenia = ip_psw.text.toString()
 
-        val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl(getString(R.string.api_url))
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val apiInterface = retrofit.create(ApiInterface::class.java)
-        val call: Call<ResponseT<Int>> = apiInterface.logIn(user)
+        val apiInterface = RetrofitConnection(applicationContext).getApiInterface()
+        val call: Call<ResponseT<Int>> = apiInterface!!.logIn(user)
 
         call.enqueue(object: Callback<ResponseT<Int>> {
 

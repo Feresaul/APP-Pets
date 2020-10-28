@@ -13,10 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_service.*
 import kotlinx.android.synthetic.main.product_item.view.*
 import kotlinx.android.synthetic.main.toast_item.view.*
-import model.ApiInterface
-import model.AppHelper
-import model.ResponseT
-import model.ServiceItem
+import model.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -95,12 +92,8 @@ class Service : AppCompatActivity() {
 
         loading_progress.visibility = View.VISIBLE
 
-        val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl(getString(R.string.api_url))
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val apiInterface = retrofit.create(ApiInterface::class.java)
-        val call: Call<ResponseT<ArrayList<ServiceItem>>> = apiInterface.getServicesByType(intent.getStringExtra("typeService").toString())
+        val apiInterface = RetrofitConnection(applicationContext).getApiInterface()
+        val call: Call<ResponseT<ArrayList<ServiceItem>>> = apiInterface!!.getServicesByType(intent.getStringExtra("typeService").toString())
 
         call.enqueue(object: Callback<ResponseT<ArrayList<ServiceItem>>> {
             override fun onResponse(call: Call<ResponseT<ArrayList<ServiceItem>>>, response: Response<ResponseT<ArrayList<ServiceItem>>>) {

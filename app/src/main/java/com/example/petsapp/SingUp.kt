@@ -9,10 +9,7 @@ import android.widget.Toast
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_sing_up.*
-import model.ApiInterface
-import model.AppHelper
-import model.ResponseT
-import model.User
+import model.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -80,12 +77,8 @@ class SingUp : AppCompatActivity() {
         user.telefono = ip_phone_r.text.toString()
         user.contrasenia = ip_psw_r.text.toString()
 
-        val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl(getString(R.string.api_url))
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val apiInterface = retrofit.create(ApiInterface::class.java)
-        val call: Call<ResponseT<Int>> = apiInterface.singUp(user)
+        val apiInterface = RetrofitConnection(applicationContext).getApiInterface()
+        val call: Call<ResponseT<Int>> = apiInterface!!.singUp(user)
 
         call.enqueue(object: Callback<ResponseT<Int>> {
             override fun onResponse(call: Call<ResponseT<Int>>, response: retrofit2.Response<ResponseT<Int>>) {
