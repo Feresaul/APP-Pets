@@ -74,7 +74,7 @@ class History : AppCompatActivity() {
         val idUsuario = this.getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE).getInt("id_user", -1)
         loading_progress_H.visibility = View.VISIBLE
 
-        val apiInterface = RetrofitConnection(applicationContext).getApiInterface()
+        val apiInterface = RetrofitConnection().getApiInterface(applicationContext)
         val call: Call<ResponseT<ArrayList<ServiceItem>>> = apiInterface!!.getHistory(idUsuario)
 
         call.enqueue(object: Callback<ResponseT<ArrayList<ServiceItem>>> {

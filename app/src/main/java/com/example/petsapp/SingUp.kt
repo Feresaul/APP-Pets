@@ -77,7 +77,7 @@ class SingUp : AppCompatActivity() {
         user.telefono = ip_phone_r.text.toString()
         user.contrasenia = ip_psw_r.text.toString()
 
-        val apiInterface = RetrofitConnection(applicationContext).getApiInterface()
+        val apiInterface = RetrofitConnection().getApiInterface(applicationContext)
         val call: Call<ResponseT<Int>> = apiInterface!!.singUp(user)
 
         call.enqueue(object: Callback<ResponseT<Int>> {

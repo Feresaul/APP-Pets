@@ -60,7 +60,7 @@ class LogIn : AppCompatActivity() {
         user.usuario = ip_user.text.toString()
         user.contrasenia = ip_psw.text.toString()
 
-        val apiInterface = RetrofitConnection(applicationContext).getApiInterface()
+        val apiInterface = RetrofitConnection().getApiInterface(applicationContext)
         val call: Call<ResponseT<Int>> = apiInterface!!.logIn(user)
 
         call.enqueue(object: Callback<ResponseT<Int>> {

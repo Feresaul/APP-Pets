@@ -8,16 +8,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 class RetrofitConnection{
-    private var api: ApiInterface ?= null
-
-    constructor(context: Context){
-        if(api==null) {
-            this.api = createRetrofitConnection(context)
-        }
+    companion object{
+        var api: ApiInterface ?= null
     }
 
-    fun getApiInterface(): ApiInterface? {
-        return this.api
+    fun getApiInterface(context: Context): ApiInterface? {
+        if(api==null) {
+            api = createRetrofitConnection(context)
+        }
+        return api
     }
 
     private fun createRetrofitConnection(context: Context): ApiInterface {

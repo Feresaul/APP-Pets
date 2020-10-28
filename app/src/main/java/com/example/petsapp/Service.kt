@@ -92,7 +92,7 @@ class Service : AppCompatActivity() {
 
         loading_progress.visibility = View.VISIBLE
 
-        val apiInterface = RetrofitConnection(applicationContext).getApiInterface()
+        val apiInterface = RetrofitConnection().getApiInterface(applicationContext)
         val call: Call<ResponseT<ArrayList<ServiceItem>>> = apiInterface!!.getServicesByType(intent.getStringExtra("typeService").toString())
 
         call.enqueue(object: Callback<ResponseT<ArrayList<ServiceItem>>> {

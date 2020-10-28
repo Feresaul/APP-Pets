@@ -105,7 +105,7 @@ class MyServices : AppCompatActivity() {
         val idUsuario = this.getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE).getInt("id_user", -1)
         loading_progress_S.visibility = View.VISIBLE
 
-        val apiInterface = RetrofitConnection(applicationContext).getApiInterface()
+        val apiInterface = RetrofitConnection().getApiInterface(applicationContext)
         val call: Call<ResponseT<ArrayList<ServiceItem>>> = apiInterface!!.getServices(idUsuario)
 
         call.enqueue(object: Callback<ResponseT<ArrayList<ServiceItem>>> {
@@ -124,9 +124,9 @@ class MyServices : AppCompatActivity() {
         })
     }
 
-    private fun deleteItem(idCita: Int){
-        val apiInterface = RetrofitConnection(applicationContext).getApiInterface()
-        val call: Call<ResponseT<Int>> = apiInterface!!.deleteService(idCita)
+    private fun deleteItem(id: Int){
+        val apiInterface = RetrofitConnection().getApiInterface(applicationContext)
+        val call: Call<ResponseT<Int>> = apiInterface!!.deleteService(id)
 
         call.enqueue(object: Callback<ResponseT<Int>> {
             override fun onResponse(call: Call<ResponseT<Int>>, response: Response<ResponseT<Int>>) {
