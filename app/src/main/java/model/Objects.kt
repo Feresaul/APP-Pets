@@ -38,6 +38,15 @@ class ServiceHours{
     }
 }
 
+class AddServiceItem{
+    @SerializedName("idServicio")
+    var idService: Int ?= null
+    @SerializedName("idUsuario")
+    var idUser: Int ?= null
+    @SerializedName("fechaInicio")
+    var starts: String ?= null
+}
+
 class ServiceItem{
     @SerializedName("id")
     var id: Int ?= null

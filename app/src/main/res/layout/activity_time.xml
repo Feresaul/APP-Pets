@@ -58,8 +58,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <include
+            android:id="@+id/loading_progress_h"
+            android:visibility="gone"
+            layout="@layout/loading_screen"/>
+
         <ScrollView
-            android:id="@+id/scrollView3"
+            android:id="@+id/scroll_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"

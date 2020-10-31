@@ -34,6 +34,9 @@ class RetrofitConnection{
         @POST("usuarios/registro")
         fun singUp(@Body usuario: User): Call<ResponseT<Int>>
 
+        @POST("servicios/agregarCita")
+        fun addService(@Body addServiceItem: AddServiceItem): Call<ResponseT<Int>>
+
         @GET("servicios/obtenerPorTipo")
         fun getServicesByType(@Query("tipo") tipo: String): Call<ResponseT<ArrayList<ServiceItem>>>
 
