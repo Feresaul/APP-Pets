@@ -37,6 +37,9 @@ class RetrofitConnection{
         @POST("servicios/agregarCita")
         fun addService(@Body addServiceItem: AddServiceItem): Call<ResponseT<Int>>
 
+        @POST("servicios/obtenerHoras")
+        fun getServiceHours(@Body servicio: ServiceHours): Call<ResponseT<ServiceHoursOut>>
+
         @GET("servicios/obtenerPorTipo")
         fun getServicesByType(@Query("tipo") tipo: String): Call<ResponseT<ArrayList<ServiceItem>>>
 

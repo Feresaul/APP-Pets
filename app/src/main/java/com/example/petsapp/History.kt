@@ -82,7 +82,7 @@ class History : AppCompatActivity() {
                 val responseP = response.body()
                 if (responseP!!.modelo != null) list_h.adapter = ItemsAdapter(responseP.modelo!!)
                 if (responseP.modelo!!.size <= 0)
-                    AppHelper().myToast(applicationContext,"no items found", R.drawable.ic_baseline_remove_circle_outline_24, getString(R.color.toast_alert))
+                    AppHelper().myToast(applicationContext,"no items found", R.drawable.ic_baseline_error_outline_24, getString(R.color.toast_alert))
 
                 loading_progress_H.visibility = View.GONE
             }

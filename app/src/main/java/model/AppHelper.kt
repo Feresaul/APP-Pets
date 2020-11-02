@@ -43,14 +43,17 @@ class AppHelper{
         return Selection(-1, -1)
     }
 
-    fun getArrayOfHours(item: ServiceHours): ArrayList<String>{
+    fun getArrayOfHours(item: ServiceHoursOut): ArrayList<String>{
         val array = ArrayList<String>()
 
         var hr: Int = item.opens!!.split(":")[0].toInt()
         var min: Int = item.opens!!.split(":")[1].toInt()
-        val dur: Int = item.time!!+0
+        var dur: Int = item.time!!+0
         val max_hr: Int = item.closes!!.split(":")[0].toInt()
         val max_min: Int = item.closes!!.split(":")[1].toInt()
+
+        if (dur > 1000)
+            dur = 60
 
         while (true){
             var date = ""
@@ -66,7 +69,9 @@ class AppHelper{
 
             var active = false
             for (i in 0 until item.data!!.size) {
-                if (date == item.data!![i]) {
+                val arrTime = item.data!![i].split(" ")[1].split(":")
+                val time = arrTime[0].toInt().toString()+":"+arrTime[1]
+                if (date == time) {
                     active = true
                     break
                 }

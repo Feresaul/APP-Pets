@@ -10,7 +10,6 @@ import android.view.Window
 import android.widget.CheckBox
 import android.widget.Toast
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_service.*
 import kotlinx.android.synthetic.main.activity_time.*
 import kotlinx.android.synthetic.main.hour_item.view.*
 import model.*
@@ -25,17 +24,32 @@ class Time : AppCompatActivity() {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_time)
 
-        var datetime: String = intent.getStringExtra("calendar").toString()
+        val datetime: String = intent.getStringExtra("calendar").toString()
         val idService: Int = intent.getIntExtra("idService", -1)
 
-        val itemArray =  java.util.ArrayList<View>()
+        val serviceHours = ServiceHours()
+        serviceHours.id = idService
+        serviceHours.date = datetime
+        val itemArray = ArrayList<View>()
+        addHours(serviceHours, itemArray)
 
-        //Pedir horas ocupadas API
+        btn_back_hr.setOnClickListener {
+            val typeService: String = intent.getStringExtra("typeService").toString()
+            val indexCheckbox: Int = intent.getIntExtra("indexCheckbox", -1)
+            val intent = Intent(applicationContext, Service::class.java)
+            intent.putExtra("typeService", typeService)
+            intent.putExtra("indexCheckbox", indexCheckbox)
+            intent.putExtra("calendar", datetime)
+            startActivity(intent)
+            finish()
+        }
+    }
 
-        var arrayList = ArrayList<String>()
-
-        val serviceHours = ServiceHours("9:00", "18:00", 45, arrayList)
+    fun addItemsView(datetimeI: String, itemArray: ArrayList<View>, serviceHours: ServiceHoursOut){
+        var datetime = datetimeI
+        println(Gson().toJson(serviceHours))
         val array = AppHelper().getArrayOfHours(serviceHours)
+        println(Gson().toJson(array))
 
         for (i in 0 until array.size){
             val appHelper = AppHelper()
@@ -48,17 +62,6 @@ class Time : AppCompatActivity() {
             item.item_hr.setOnClickListener {
                 appHelper.checkBoxGroup(i, array, itemArray)
             }
-        }
-
-        btn_back_hr.setOnClickListener {
-            val typeService: String = intent.getStringExtra("typeService").toString()
-            val indexCheckbox: Int = intent.getIntExtra("indexCheckbox", -1)
-            val intent = Intent(applicationContext, Service::class.java)
-            intent.putExtra("typeService", typeService)
-            intent.putExtra("indexCheckbox", indexCheckbox)
-            intent.putExtra("calendar", datetime)
-            startActivity(intent)
-            finish()
         }
 
         btn_proceed_hr.setOnClickListener {
@@ -74,17 +77,41 @@ class Time : AppCompatActivity() {
 
             if (id !=-1){
                 val service = AddServiceItem()
-                service.idService = idService
+                service.idService = intent.getIntExtra("idService", -1)
                 service.starts = datetime
                 val sharedPreferences = this.getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE)
                 service.idUser = sharedPreferences.getInt("id_user", -1)
                 addItem(service)
             }
             else{
-            Toast.makeText(applicationContext, "select time", Toast.LENGTH_LONG).show()
-            return@setOnClickListener
+                AppHelper().myToast(applicationContext, "select time", R.drawable.ic_baseline_error_outline_24, getString(R.color.toast_alert))
+                return@setOnClickListener
             }
         }
+    }
+
+    private fun addHours(serviceHours: ServiceHours, itemArray: ArrayList<View>){
+        loading_progress_h.visibility = View.VISIBLE
+        scroll_time.visibility = View.GONE
+
+        val apiInterface = RetrofitConnection().getApiInterface(applicationContext)
+        val call: Call<ResponseT<ServiceHoursOut>> = apiInterface!!.getServiceHours(serviceHours)
+
+        call.enqueue(object: Callback<ResponseT<ServiceHoursOut>> {
+            override fun onResponse(call: Call<ResponseT<ServiceHoursOut>>, response: Response<ResponseT<ServiceHoursOut>>) {
+                val responseP = response.body()
+                if (!responseP!!.error!!){
+                    loading_progress_h.visibility = View.GONE
+                    scroll_time.visibility = View.VISIBLE
+                    addItemsView(serviceHours.date!!, itemArray, responseP.modelo!!)
+                }
+            }
+            override fun onFailure(call: Call<ResponseT<ServiceHoursOut>>, t: Throwable) {
+                loading_progress_h.visibility = View.GONE
+                scroll_time.visibility = View.VISIBLE
+                AppHelper().myToast(applicationContext, "error", R.drawable.ic_baseline_cancel_24, getString(R.color.toast_error))
+            }
+        })
     }
 
     private fun addItem(service: AddServiceItem){
@@ -99,6 +126,7 @@ class Time : AppCompatActivity() {
                 val responseP = response.body()
                 if (!responseP!!.error!!){
                     loading_progress_h.visibility = View.GONE
+                    scroll_time.visibility = View.VISIBLE
                     AppHelper().myToast(applicationContext, responseP.mensaje!!, R.drawable.ic_baseline_assignment_turned_in_24, getString(R.color.colorAccent))
                     val intent = Intent(applicationContext, Home::class.java)
                     startActivity(intent)
@@ -108,7 +136,7 @@ class Time : AppCompatActivity() {
             override fun onFailure(call: Call<ResponseT<Int>>, t: Throwable) {
                 loading_progress_h.visibility = View.GONE
                 scroll_time.visibility = View.VISIBLE
-                AppHelper().myToast(applicationContext, "Error", R.drawable.ic_baseline_cancel_24, getString(R.color.toast_error))
+                AppHelper().myToast(applicationContext, "error", R.drawable.ic_baseline_cancel_24, getString(R.color.toast_error))
             }
         })
     }

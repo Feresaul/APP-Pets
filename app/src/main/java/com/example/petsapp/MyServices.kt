@@ -57,11 +57,9 @@ class MyServices : AppCompatActivity() {
     }
 
     private fun cancelService(index: Int, list: ArrayList<ServiceItem>){
-        println("DATA")
         val idCita: Int = list[index].id!!.toInt()
         deleteItem(idCita)
         list.removeAt(index)
-        println(idCita)
         list_s.adapter = ItemsAdapter(list)
     }
 
@@ -113,7 +111,7 @@ class MyServices : AppCompatActivity() {
                 val responseP = response.body()
                 if (responseP!!.modelo != null) list_s.adapter = ItemsAdapter(responseP.modelo!!)
                 if (responseP.modelo!!.size <= 0)
-                    AppHelper().myToast(applicationContext,"no items found", R.drawable.ic_baseline_remove_circle_outline_24, getString(R.color.toast_alert))
+                    AppHelper().myToast(applicationContext,"no items found", R.drawable.ic_baseline_error_outline_24, getString(R.color.toast_alert))
                 loading_progress_S.visibility = View.GONE
             }
             override fun onFailure(call: Call<ResponseT<ArrayList<ServiceItem>>>, t: Throwable) {
@@ -130,7 +128,9 @@ class MyServices : AppCompatActivity() {
 
         call.enqueue(object: Callback<ResponseT<Int>> {
             override fun onResponse(call: Call<ResponseT<Int>>, response: Response<ResponseT<Int>>) {
-                Toast.makeText(applicationContext, response.body()!!.modelo!! , Toast.LENGTH_LONG).show()
+                val responseP = response.body()
+                if (responseP != null)
+                AppHelper().myToast(applicationContext, responseP.mensaje!! , R.drawable.ic_baseline_remove_circle_outline_24, getString(R.color.toast_alert))
             }
             override fun onFailure(call: Call<ResponseT<Int>>, t: Throwable) {
                 AppHelper().myToast(applicationContext,"cancellation error", R.drawable.ic_baseline_cancel_24, getString(R.color.toast_error))

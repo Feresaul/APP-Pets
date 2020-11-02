@@ -25,17 +25,21 @@ class User{
 }
 
 class ServiceHours{
-    var opens: String ?= null
-    var closes: String ?= null
-    var time: Int ?= null
-    var data: ArrayList<String> ?= null
+    @SerializedName("idTipoServicio")
+    var id: Int ?= null
+    @SerializedName("fechaInicio")
+    var date: String ?= null
+}
 
-    constructor(opens: String, closes: String, time: Int, data: ArrayList<String>){
-        this.opens = opens
-        this.closes = closes
-        this.time = time
-        this.data = data
-    }
+class ServiceHoursOut{
+    @SerializedName("inicio")
+    var opens: String ?= null
+    @SerializedName("termino")
+    var closes: String ?= null
+    @SerializedName("tiempo")
+    var time: Int ?= null
+    @SerializedName("arrayHoras")
+    var data: ArrayList<String> ?= null
 }
 
 class AddServiceItem{
