@@ -47,9 +47,7 @@ class Time : AppCompatActivity() {
 
     fun addItemsView(datetimeI: String, itemArray: ArrayList<View>, serviceHours: ServiceHoursOut){
         var datetime = datetimeI
-        println(Gson().toJson(serviceHours))
         val array = AppHelper().getArrayOfHours(serviceHours)
-        println(Gson().toJson(array))
 
         for (i in 0 until array.size){
             val appHelper = AppHelper()

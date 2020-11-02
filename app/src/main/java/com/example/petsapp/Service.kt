@@ -3,24 +3,23 @@ package com.example.petsapp
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.widget.CalendarView
+import android.widget.CalendarView.OnDateChangeListener
 import android.widget.CheckBox
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_service.*
 import kotlinx.android.synthetic.main.product_item.view.*
-import kotlinx.android.synthetic.main.toast_item.view.*
-import model.*
+import model.AppHelper
+import model.ResponseT
+import model.RetrofitConnection
+import model.ServiceItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Exception
 import java.text.SimpleDateFormat
+
 
 @SuppressLint("ResourceType")
 class Service : AppCompatActivity() {
@@ -36,6 +35,7 @@ class Service : AppCompatActivity() {
         getItems()
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun completeView(){
         for (i in 0 until array.size){
             val appHelper = AppHelper()
@@ -60,6 +60,15 @@ class Service : AppCompatActivity() {
 
         val calendar = CalendarView(this)
         service_items.addView(calendar)
+        val datetime = intent.getStringExtra("calendar")
+        if (datetime != null && datetime != ""){
+            calendar.setDate(SimpleDateFormat("yyyy/MM/dd").parse(datetime).time,false,false)
+        }
+
+        calendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            val monthI = month + 1
+            calendar.setDate(SimpleDateFormat("yyyy/MM/dd").parse("$year/$monthI/$dayOfMonth").time,false,false)
+        }
 
         btn_back.setOnClickListener {
             finish()
@@ -80,7 +89,14 @@ class Service : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }else{
-                AppHelper().myToast(applicationContext,"select a service", R.drawable.ic_baseline_error_outline_24, getString(R.color.toast_alert))
+                AppHelper().myToast(
+                    applicationContext,
+                    "select a service",
+                    R.drawable.ic_baseline_error_outline_24,
+                    getString(
+                        R.color.toast_alert
+                    )
+                )
                 return@setOnClickListener
             }
         }
@@ -93,21 +109,36 @@ class Service : AppCompatActivity() {
         loading_progress.visibility = View.VISIBLE
 
         val apiInterface = RetrofitConnection().getApiInterface(applicationContext)
-        val call: Call<ResponseT<ArrayList<ServiceItem>>> = apiInterface!!.getServicesByType(intent.getStringExtra("typeService").toString())
+        val call: Call<ResponseT<ArrayList<ServiceItem>>> = apiInterface!!.getServicesByType(
+            intent.getStringExtra(
+                "typeService"
+            ).toString()
+        )
 
-        call.enqueue(object: Callback<ResponseT<ArrayList<ServiceItem>>> {
-            override fun onResponse(call: Call<ResponseT<ArrayList<ServiceItem>>>, response: Response<ResponseT<ArrayList<ServiceItem>>>) {
+        call.enqueue(object : Callback<ResponseT<ArrayList<ServiceItem>>> {
+            override fun onResponse(
+                call: Call<ResponseT<ArrayList<ServiceItem>>>,
+                response: Response<ResponseT<ArrayList<ServiceItem>>>
+            ) {
                 val responseP = response.body()
-                if (!responseP!!.error!!){
+                if (!responseP!!.error!!) {
                     if (responseP.modelo != null)
                         array.addAll(responseP.modelo!!)
                     completeView()
                     loading_progress.visibility = View.GONE
                 }
             }
+
             override fun onFailure(call: Call<ResponseT<ArrayList<ServiceItem>>>, t: Throwable) {
                 loading_progress.visibility = View.GONE
-                AppHelper().myToast(applicationContext,"failed to load data", R.drawable.ic_baseline_cancel_24, getString(R.color.toast_error))
+                AppHelper().myToast(
+                    applicationContext,
+                    "failed to load data",
+                    R.drawable.ic_baseline_cancel_24,
+                    getString(
+                        R.color.toast_error
+                    )
+                )
                 finish()
             }
         })
