@@ -48,6 +48,8 @@ class Time : AppCompatActivity() {
     fun addItemsView(datetimeI: String, itemArray: ArrayList<View>, serviceHours: ServiceHoursOut){
         var datetime = datetimeI
         val array = AppHelper().getArrayOfHours(serviceHours)
+        if (array.size <= 0)
+            AppHelper().myToast(applicationContext,"no space available", R.drawable.ic_baseline_error_outline_24, getString(R.color.toast_alert))
 
         for (i in 0 until array.size){
             val appHelper = AppHelper()
