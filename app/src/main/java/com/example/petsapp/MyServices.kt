@@ -30,7 +30,9 @@ class MyServices : AppCompatActivity() {
         setContentView(R.layout.activity_my_services)
 
         getItems()
+    }
 
+    fun completeView(){
         btn_back_s.setOnClickListener {
             finish()
         }
@@ -113,6 +115,7 @@ class MyServices : AppCompatActivity() {
                 if (responseP.modelo!!.size <= 0)
                     AppHelper().myToast(applicationContext,"no items found", R.drawable.ic_baseline_error_outline_24, getString(R.color.toast_alert))
                 loading_progress_S.visibility = View.GONE
+                completeView()
             }
             override fun onFailure(call: Call<ResponseT<ArrayList<ServiceItem>>>, t: Throwable) {
                 loading_progress_S.visibility = View.GONE
