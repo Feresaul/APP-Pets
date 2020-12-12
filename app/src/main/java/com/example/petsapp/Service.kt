@@ -59,6 +59,7 @@ class Service : AppCompatActivity() {
         }
 
         val calendar = CalendarView(this)
+        calendar.minDate = calendar.date
         service_items.addView(calendar)
         val datetime = intent.getStringExtra("calendar")
         if (datetime != null && datetime != ""){

@@ -85,6 +85,7 @@ class SingUp : AppCompatActivity() {
                 val responseP = response.body()
                 if (!responseP!!.error!!) {
                     val sharedPreferences = getSharedPreferences("com.up.storedatasharepreferences", Context.MODE_PRIVATE)
+                    AppHelper().myToast(applicationContext, responseP.mensaje!!, R.drawable.ic_baseline_assignment_turned_in_24, getString(R.color.toast_alert))
                     sharedPreferences.edit().putInt("id_user", responseP.modelo!!).apply()
                     finish()
                 }
